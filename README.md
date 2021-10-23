@@ -1,4 +1,4 @@
-# calc-hello-world
+# calc
 
 ## Requirements
 * The app should display the sum of 2 given numbers
