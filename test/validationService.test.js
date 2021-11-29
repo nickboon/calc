@@ -2,12 +2,15 @@ import Assert from './assert.js';
 import ValidationService from '../src/validationService.js';
 
 const assert = new Assert();
-const validAddParameter = 'add';
 const validationService = new ValidationService();
+
+const validAddParameter = 'add';
+const validFirstNumber = '2';
+const validSecondNumber = '5';
 const getValidParams = () => ({
 	operator: validAddParameter,
-	firstnumber: '2',
-	secondnumber: '5',
+	firstnumber: validFirstNumber,
+	secondnumber: validSecondNumber,
 });
 
 assert.true('Valid params should be returned', () => {
