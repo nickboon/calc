@@ -5,16 +5,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>TEST</title>
+		<link rel="shortcut icon" href="../favicon.png" type="image/x-icon" />
 	</head>
 	<body>
-		Hello World!
-		<script>
-			// Hello world test
-			fetch('http://localhost:5500/src')
-				.then((response) => response.text())
-				.then((data) => {
-					console.log('Should see hello world', data.includes('Hello world!'));
-				});
-		</script>
+		Test runner - open devtools console (F12) to check tests.
+		<script type="module" src="e2e.test.js"></script>
 	</body>
 </html>
