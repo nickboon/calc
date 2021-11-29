@@ -2,7 +2,9 @@ import Assert from './assert.js';
 import ValidationService from '../src/validationService.js';
 
 const assert = new Assert();
-const validationService = new ValidationService();
+const sut = new ValidationService();
+
+assert.sut(ValidationService);
 
 const validAddParameter = 'add';
 const validFirstNumber = '2';
@@ -15,7 +17,7 @@ const getValidParams = () => ({
 
 assert.true('Valid params should be returned', () => {
 	// act
-	const actual = validationService.validate(getValidParams());
+	const actual = sut.validate(getValidParams());
 
 	// assert
 	return (
@@ -31,7 +33,7 @@ assert.true('No operator should default to addition', () => {
 	delete nullOperatorParams.operator;
 
 	// act
-	const actual = validationService.validate(nullOperatorParams);
+	const actual = sut.validate(nullOperatorParams);
 
 	// assert
 	return actual.operator === validAddParameter;
@@ -43,10 +45,10 @@ assert.true('Unexpected operator should return expected error', () => {
 	invalidOperatorParams.operator = 'Unexpected';
 
 	// act
-	const actual = validationService.validate(invalidOperatorParams);
+	const actual = sut.validate(invalidOperatorParams);
 
 	// assert
-	return validationService.unexpectedOperatorErrorMessage === actual.errors[0];
+	return sut.unexpectedOperatorErrorMessage === actual.errors[0];
 });
 
 assert.true('Negative numbers should be valid', () => {
@@ -55,7 +57,7 @@ assert.true('Negative numbers should be valid', () => {
 	minusNumberParams.firstnumber = '-1';
 
 	// act
-	const actual = validationService.validate(minusNumberParams);
+	const actual = sut.validate(minusNumberParams);
 
 	// assert
 	return -1 === actual.firstNumber;
@@ -67,10 +69,10 @@ assert.true('Invalid numbers should result in error message', () => {
 	invalidNumberParams.firstnumber = 'not a number';
 
 	// act
-	const actual = validationService.validate(invalidNumberParams);
+	const actual = sut.validate(invalidNumberParams);
 
 	// assert
-	return validationService.invalidNumberErrorMessage === actual.errors[0];
+	return sut.invalidNumberErrorMessage === actual.errors[0];
 });
 
 // Single number should result in error message
