@@ -43,37 +43,32 @@ assert.true('Invalid operator should return error message', () => {
 });
 
 assert.throws('Default operator should be readonly', () => {
-	// act
 	ValidationService.defaultOperator = 'new value';
 });
 
-assert.true('Default operator should be "add"', () => {
-	// assert
-	return 'add' === ValidationService.defaultOperator;
-});
+assert.equal(
+	'Default operator should be "add"',
+	'add',
+	() => ValidationService.defaultOperator
+);
 
-assert.true('No operator should return default', () => {
+assert.equal(
+	'No operator should return default',
+	ValidationService.defaultOperator,
+	() => {
+		const nullOperatorParams = getValidParams();
+		delete nullOperatorParams.operator;
+		return sut.validate(nullOperatorParams).operator;
+	}
+);
+
+assert.equal('No operator should be valid', 0, () => {
 	// arrange
 	const nullOperatorParams = getValidParams();
 	delete nullOperatorParams.operator;
 
-	// act
-	const actual = sut.validate(nullOperatorParams);
-
-	// assert
-	return actual.operator === ValidationService.defaultOperator;
-});
-
-assert.true('No operator should be valid', () => {
-	// arrange
-	const nullOperatorParams = getValidParams();
-	delete nullOperatorParams.operator;
-
-	// act
-	const actual = sut.validate(nullOperatorParams);
-
-	// assert
-	return actual.errors.length === 0;
+	//act
+	return sut.validate(nullOperatorParams).errors.length;
 });
 
 assert.true('Invalid operator should return expected error', () => {
@@ -91,16 +86,13 @@ assert.true('Invalid operator should return expected error', () => {
 	);
 });
 
-assert.true('Negative numbers should be valid', () => {
+assert.equal('Negative numbers should be valid', -1, () => {
 	// arrange
 	const minusNumberParams = getValidParams();
 	minusNumberParams.firstnumber = '-1';
 
 	// act
-	const actual = sut.validate(minusNumberParams);
-
-	// assert
-	return -1 === actual.firstNumber;
+	return sut.validate(minusNumberParams).firstNumber;
 });
 
 assert.true('Invalid numbers should result in error message', () => {
@@ -111,8 +103,11 @@ assert.true('Invalid numbers should result in error message', () => {
 	// act
 	const actual = sut.validate(invalidNumberParams);
 
-	// assert
-	return ValidationService.invalidNumberErrorMessage === actual.errors[0];
+	//assert
+	return (
+		ValidationService.invalidNumberErrorMessage === actual.errors[0] &&
+		actual.errors.length === 1
+	);
 });
 
 // Single number should result in error message

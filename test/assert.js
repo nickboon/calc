@@ -7,6 +7,13 @@ export default class Assert {
 		);
 	};
 
+	static #logActual = (expected, actual) => {
+		console.log(
+			`%cExpected: "${expected}". Actual: "${actual}"`,
+			'color: #f00'
+		);
+	};
+
 	sut(sut) {
 		console.log(`%c${sut?.name || 'e2e'} tests`, 'text-decoration: underline');
 	}
@@ -15,14 +22,20 @@ export default class Assert {
 		Assert.#logExpectation(expectation, test());
 	}
 
+	equal(expectation, expected, test) {
+		const actual = test();
+		const isEqual = expected === actual;
+		this.true(expectation, () => isEqual);
+		if (!isEqual) Assert.#logActual(expected, actual);
+	}
+
 	throws(expectation, test) {
-		let result = false;
+		let isError = false;
 		try {
 			test();
 		} catch (error) {
-			result = true;
+			isError = true;
 		}
-
-		Assert.#logExpectation(expectation, result);
+		Assert.#logExpectation(expectation, isError);
 	}
 }
