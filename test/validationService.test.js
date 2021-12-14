@@ -45,7 +45,6 @@ assert.true('Invalid operator should return error message', () => {
 assert.true('No operator should default to addition', () => {
 	// arrange
 	const nullOperatorParams = getValidParams();
-
 	delete nullOperatorParams.operator;
 
 	// act
@@ -58,7 +57,6 @@ assert.true('No operator should default to addition', () => {
 assert.true('No operator should be valid', () => {
 	// arrange
 	const nullOperatorParams = getValidParams();
-
 	delete nullOperatorParams.operator;
 
 	// act
