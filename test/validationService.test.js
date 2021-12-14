@@ -37,12 +37,26 @@ assert.true('Invalid operator should return error message', () => {
 
 	// assert
 	return (
-		sut.invalidOperatorErrorMessage === actual.errors[0] &&
+		ValidationService.invalidOperatorErrorMessage === actual.errors[0] &&
 		actual.errors.length === 1
 	);
 });
 
-assert.true('No operator should default to addition', () => {
+assert.true('Default operator should be readonly', () => {
+	try {
+		ValidationService.defaultOperator = 'new value';
+	} catch (error) {
+		return true;
+	}
+	return false;
+});
+
+assert.true('Default operator should be "add"', () => {
+	// assert
+	return 'add' === ValidationService.defaultOperator;
+});
+
+assert.true('No operator should return default', () => {
 	// arrange
 	const nullOperatorParams = getValidParams();
 	delete nullOperatorParams.operator;
@@ -51,7 +65,7 @@ assert.true('No operator should default to addition', () => {
 	const actual = sut.validate(nullOperatorParams);
 
 	// assert
-	return actual.operator === validAddParameter;
+	return actual.operator === ValidationService.defaultOperator;
 });
 
 assert.true('No operator should be valid', () => {
@@ -76,7 +90,7 @@ assert.true('Invalid operator should return expected error', () => {
 
 	// assert
 	return (
-		sut.invalidOperatorErrorMessage === actual.errors[0] &&
+		ValidationService.invalidOperatorErrorMessage === actual.errors[0] &&
 		actual.errors.length === 1
 	);
 });
@@ -102,7 +116,7 @@ assert.true('Invalid numbers should result in error message', () => {
 	const actual = sut.validate(invalidNumberParams);
 
 	// assert
-	return sut.invalidNumberErrorMessage === actual.errors[0];
+	return ValidationService.invalidNumberErrorMessage === actual.errors[0];
 });
 
 // Single number should result in error message

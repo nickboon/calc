@@ -1,29 +1,37 @@
-const defaultOperator = 'add';
 export default class ValidationService {
-	constructor() {
-		this.invalidNumberErrorMessage = 'Invalid number!';
-		this.invalidOperatorErrorMessage = 'Invalid operator!';
+	static #defaultOperator = 'add';
+	static #invalidNumberErrorMessage = 'Invalid number!';
+	static #invalidOperatorErrorMessage = 'Invalid operator!';
+	static get defaultOperator() {
+		return ValidationService.#defaultOperator;
+	}
+	static get invalidNumberErrorMessage() {
+		return ValidationService.#invalidNumberErrorMessage;
+	}
+	static get invalidOperatorErrorMessage() {
+		return ValidationService.#invalidOperatorErrorMessage;
 	}
 
 	validate(params) {
 		const errors = [];
 
-		if (!params['operator']) {
-			params['operator'] = defaultOperator;
-		} else if (params['operator'] !== 'add') {
-			errors.push(this.invalidOperatorErrorMessage);
+		const operator = params['operator'] || ValidationService.defaultOperator;
+		if (operator !== 'add') {
+			errors.push(ValidationService.#invalidOperatorErrorMessage);
 		}
 
 		const firstNumber = parseFloat(params['firstnumber']);
-		if (Number.isNaN(firstNumber)) errors.push(this.invalidNumberErrorMessage);
+		if (Number.isNaN(firstNumber))
+			errors.push(ValidationService.#invalidNumberErrorMessage);
 
 		const secondNumber = parseFloat(params['secondnumber']);
-		if (Number.isNaN(secondNumber)) errors.push(this.invalidNumberErrorMessage);
+		if (Number.isNaN(secondNumber))
+			errors.push(ValidationService.#invalidNumberErrorMessage);
 
 		return {
 			firstNumber,
 			secondNumber,
-			operator: params['operator'],
+			operator,
 			errors,
 		};
 	}
