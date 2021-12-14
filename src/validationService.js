@@ -1,14 +1,18 @@
+const defaultOperator = 'add';
 export default class ValidationService {
 	constructor() {
-		this.unexpectedOperatorErrorMessage = 'Unexpected operator!';
 		this.invalidNumberErrorMessage = 'Invalid number!';
+		this.invalidOperatorErrorMessage = 'Invalid operator!';
 	}
 
 	validate(params) {
 		const errors = [];
 
-		if (params['operator'] !== 'add')
-			errors.push(this.unexpectedOperatorErrorMessage);
+		if (!params['operator']) {
+			params['operator'] = defaultOperator;
+		} else if (params['operator'] !== 'add') {
+			errors.push(this.invalidOperatorErrorMessage);
+		}
 
 		const firstNumber = parseFloat(params['firstnumber']);
 		if (Number.isNaN(firstNumber)) errors.push(this.invalidNumberErrorMessage);

@@ -27,9 +27,25 @@ assert.true('Valid params should be returned', () => {
 	);
 });
 
+assert.true('Invalid operator should return error message', () => {
+	// arrange
+	const invalidOperatorParams = getValidParams();
+	invalidOperatorParams.operator = 'invalid';
+
+	// act
+	const actual = sut.validate(invalidOperatorParams);
+
+	// assert
+	return (
+		sut.invalidOperatorErrorMessage === actual.errors[0] &&
+		actual.errors.length === 1
+	);
+});
+
 assert.true('No operator should default to addition', () => {
 	// arrange
 	const nullOperatorParams = getValidParams();
+
 	delete nullOperatorParams.operator;
 
 	// act
@@ -39,16 +55,32 @@ assert.true('No operator should default to addition', () => {
 	return actual.operator === validAddParameter;
 });
 
-assert.true('Unexpected operator should return expected error', () => {
+assert.true('No operator should be valid', () => {
+	// arrange
+	const nullOperatorParams = getValidParams();
+
+	delete nullOperatorParams.operator;
+
+	// act
+	const actual = sut.validate(nullOperatorParams);
+
+	// assert
+	return actual.errors.length === 0;
+});
+
+assert.true('Invalid operator should return expected error', () => {
 	// arrange
 	const invalidOperatorParams = getValidParams();
-	invalidOperatorParams.operator = 'Unexpected';
+	invalidOperatorParams.operator = 'Invalid';
 
 	// act
 	const actual = sut.validate(invalidOperatorParams);
 
 	// assert
-	return sut.unexpectedOperatorErrorMessage === actual.errors[0];
+	return (
+		sut.invalidOperatorErrorMessage === actual.errors[0] &&
+		actual.errors.length === 1
+	);
 });
 
 assert.true('Negative numbers should be valid', () => {
