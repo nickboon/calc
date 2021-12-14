@@ -42,13 +42,9 @@ assert.true('Invalid operator should return error message', () => {
 	);
 });
 
-assert.true('Default operator should be readonly', () => {
-	try {
-		ValidationService.defaultOperator = 'new value';
-	} catch (error) {
-		return true;
-	}
-	return false;
+assert.throws('Default operator should be readonly', () => {
+	// act
+	ValidationService.defaultOperator = 'new value';
 });
 
 assert.true('Default operator should be "add"', () => {
