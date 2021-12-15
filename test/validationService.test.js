@@ -37,7 +37,7 @@ assert.true('Invalid operator should return error message', () => {
 
 	// assert
 	return (
-		ValidationService.invalidOperatorErrorMessage === actual.errors[0] &&
+		ValidationService.errorMessages.invalidOperator === actual.errors[0] &&
 		actual.errors.length === 1
 	);
 });
@@ -56,8 +56,11 @@ assert.equal(
 	'No operator should return default',
 	ValidationService.defaultOperator,
 	() => {
+		// arrange
 		const nullOperatorParams = getValidParams();
 		delete nullOperatorParams.operator;
+
+		//act
 		return sut.validate(nullOperatorParams).operator;
 	}
 );
@@ -81,7 +84,7 @@ assert.true('Invalid operator should return expected error', () => {
 
 	// assert
 	return (
-		ValidationService.invalidOperatorErrorMessage === actual.errors[0] &&
+		ValidationService.errorMessages.invalidOperator === actual.errors[0] &&
 		actual.errors.length === 1
 	);
 });
@@ -105,7 +108,7 @@ assert.true('Invalid numbers should result in error message', () => {
 
 	//assert
 	return (
-		ValidationService.invalidNumberErrorMessage === actual.errors[0] &&
+		ValidationService.errorMessages.invalidNumber === actual.errors[0] &&
 		actual.errors.length === 1
 	);
 });

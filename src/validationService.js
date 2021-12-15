@@ -1,15 +1,13 @@
 export default class ValidationService {
-	static #defaultOperator = 'add';
-	static #invalidNumberErrorMessage = 'Invalid number!';
-	static #invalidOperatorErrorMessage = 'Invalid operator!';
 	static get defaultOperator() {
-		return ValidationService.#defaultOperator;
+		return 'add';
 	}
-	static get invalidNumberErrorMessage() {
-		return ValidationService.#invalidNumberErrorMessage;
-	}
-	static get invalidOperatorErrorMessage() {
-		return ValidationService.#invalidOperatorErrorMessage;
+
+	static get errorMessages() {
+		return {
+			invalidNumber: 'Invalid number!',
+			invalidOperator: 'Invalid operator!',
+		};
 	}
 
 	validate(params) {
@@ -17,16 +15,16 @@ export default class ValidationService {
 
 		const operator = params['operator'] || ValidationService.defaultOperator;
 		if (operator !== 'add') {
-			errors.push(ValidationService.#invalidOperatorErrorMessage);
+			errors.push(ValidationService.errorMessages.invalidOperator);
 		}
 
 		const firstNumber = parseFloat(params['firstnumber']);
 		if (Number.isNaN(firstNumber))
-			errors.push(ValidationService.#invalidNumberErrorMessage);
+			errors.push(ValidationService.errorMessages.invalidNumber);
 
 		const secondNumber = parseFloat(params['secondnumber']);
 		if (Number.isNaN(secondNumber))
-			errors.push(ValidationService.#invalidNumberErrorMessage);
+			errors.push(ValidationService.errorMessages.invalidNumber);
 
 		return {
 			firstNumber,
