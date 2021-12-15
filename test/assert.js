@@ -1,18 +1,18 @@
 // see https://chiamakaikeanyi.dev/coloured-console-log-in-browser-devtools/
 export default class Assert {
-	static #logExpectation = (expectation, result) => {
+	static #logExpectation(expectation, result) {
 		console.log(
 			`%c${expectation}: ${result ? '🗸' : '🕱'}`,
 			`color: #${result ? '0f0' : 'f00'}`
 		);
-	};
+	}
 
-	static #logActual = (expected, actual) => {
+	static #logActual(expected, actual) {
 		console.log(
 			`%cExpected: "${expected}". Actual: "${actual}"`,
 			'color: #f00'
 		);
-	};
+	}
 
 	sut(sut) {
 		console.log(`%c${sut?.name || 'e2e'} tests`, 'text-decoration: underline');
