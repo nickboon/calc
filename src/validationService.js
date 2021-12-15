@@ -14,9 +14,8 @@ export default class ValidationService {
 		const errors = [];
 
 		const operator = params['operator'] || ValidationService.defaultOperator;
-		if (operator !== 'add') {
+		if (operator !== 'add')
 			errors.push(ValidationService.errorMessages.invalidOperator);
-		}
 
 		const firstNumber = parseFloat(params['firstnumber']);
 		if (Number.isNaN(firstNumber))
