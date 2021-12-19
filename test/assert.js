@@ -14,7 +14,7 @@ export default class Assert {
 		);
 	}
 
-	sut(sut) {
+	sutIs(sut) {
 		console.log(`%c${sut?.name || 'e2e'} tests`, 'text-decoration: underline');
 	}
 

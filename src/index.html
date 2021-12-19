@@ -5,8 +5,33 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Calc</title>
+		<link rel="shortcut icon" href="../favicon.png" type="image/x-icon" />
 	</head>
 	<body>
-		Hello world!
+		Hello world
+
+		<div id="result"></div>
+
+		<script type="module">
+			import AddService from './addService.js';
+			import ValidationService from './validationService.js';
+
+			function displayResult(result) {
+				document.getElementById('result').innerText = `result=${result}!`;
+			}
+
+			// parse querystring
+			const urlSearchParams = new URLSearchParams(window.location.search);
+			const params = Object.fromEntries(urlSearchParams.entries());
+
+			// validation
+			const validatedParams = new ValidationService().validate(params);
+
+			// hand off logic to service
+			const result = new AddService().add(
+				validatedParams.firstNumber,
+				validatedParams.secondNumber
+			);
+		</script>
 	</body>
 </html>
