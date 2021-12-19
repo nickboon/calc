@@ -11,4 +11,4 @@
 * Functionality should be tested with unit tests
 * The requirements should be tested with acceptence tests
 * Tests should be run automatically by the build
-* Deployment should be automatically.
+* Deployment be run automatically.
