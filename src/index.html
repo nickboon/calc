@@ -9,29 +9,5 @@
 	</head>
 	<body>
 		Hello world
-
-		<div id="result"></div>
-
-		<script type="module">
-			import AddService from './addService.js';
-			import ValidationService from './validationService.js';
-
-			function displayResult(result) {
-				document.getElementById('result').innerText = `result=${result}!`;
-			}
-
-			// parse querystring
-			const urlSearchParams = new URLSearchParams(window.location.search);
-			const params = Object.fromEntries(urlSearchParams.entries());
-
-			// validation
-			const validatedParams = new ValidationService().validate(params);
-
-			// hand off logic to service
-			const result = new AddService().add(
-				validatedParams.firstNumber,
-				validatedParams.secondNumber
-			);
-		</script>
 	</body>
 </html>
