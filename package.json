@@ -1,0 +1,25 @@
+{
+	"name": "calc",
+	"version": "1.0.0",
+	"description": "Example app",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "tape test/**/*.tape.test.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nickboon/calc.git"
+	},
+	"author": "Nick Boon",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/nickboon/calc/issues"
+	},
+	"homepage": "https://github.com/nickboon/calc#readme",
+	"devDependencies": {
+		"tape": "^5.4.0"
+	}
+}
