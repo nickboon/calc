@@ -6,8 +6,9 @@
 	"directories": {
 		"test": "test"
 	},
+	"type": "module",
 	"scripts": {
-		"test": "tape test/**/*.tape.test.js"
+		"test": "tape ./test/**/*.tape.test.js"
 	},
 	"repository": {
 		"type": "git",

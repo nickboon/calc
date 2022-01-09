@@ -1,6 +1,7 @@
-var test = require('tape');
-var AddService = require('../src/addService.js');
-var sut = new AddService();
+import test from 'tape';
+import AddService from '../src/addService.js';
+
+const sut = new AddService();
 
 test('Should return the sum of 2 given numbers', (assert) => {
 	assert.equal(sut.add(2, 3), 5);
